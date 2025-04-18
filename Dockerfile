@@ -25,4 +25,7 @@ RUN chmod +x /opt/factorio/entry_point.sh
 
 EXPOSE 34197/udp
 
+RUN useradd -ms /bin/bash factorio
+RUN chown -R factorio:factorio /opt/factorio
+USER factorio
 ENTRYPOINT ["/opt/factorio/entry_point.sh"]
