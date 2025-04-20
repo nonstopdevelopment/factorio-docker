@@ -30,6 +30,11 @@ MAP_SETTINGS_PATH="${FACTORIO_CONFIG_DIR}/map-settings.json"       # Example for
 # This *must* exist before Factorio starts and tries to use it.
 echo "Ensuring writable data directory exists: ${WRITE_DATA_PATH}"
 mkdir -p "${WRITE_DATA_PATH}"
+echo "Ensuring writable data directory exists: ${FACTORIO_SAVES_DIR}"
+mkdir -p "${FACTORIO_SAVES_DIR}"
+echo "Ensuring writable data directory exists: ${FACTORIO_CONFIG_DIR}"
+mkdir -p "${FACTORIO_CONFIG_DIR}"
+
 
 
 # --- Generate/Check config.ini ---
@@ -86,6 +91,7 @@ exec ./bin/x64/factorio \
   --server-settings "${SERVER_SETTINGS_PATH}" \
   --map-gen-settings "${MAP_GEN_SETTINGS_PATH}" \
   --map-settings "${MAP_SETTINGS_PATH}" \
+  --save-directory "${FACTORIO_SAVES_DIR}" \
   --start-server-load-latest \
   "$@" # Pass any extra arguments from Kubernetes args/command
 
