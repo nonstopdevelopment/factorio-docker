@@ -86,7 +86,6 @@ exec ./bin/x64/factorio \
   --server-settings "${SERVER_SETTINGS_PATH}" \
   --map-gen-settings "${MAP_GEN_SETTINGS_PATH}" \
   --map-settings "${MAP_SETTINGS_PATH}" \
-  --save-directory "${FACTORIO_SAVES_DIR}" \
   "$@" # Pass any extra arguments from Kubernetes args/command
 
 # The script will not reach here if exec is successful
