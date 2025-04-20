@@ -69,6 +69,9 @@ else
   echo "Using existing ${SERVER_SETTINGS_PATH}."
 fi
 
+echo "Config output:"
+cat "${SERVER_SETTINGS_PATH}"
+
 # --- Add similar logic for map-gen-settings.json and map-settings.json if needed ---
 # Example: Copy defaults if they don't exist in the config volume
 # if [ ! -f "${MAP_GEN_SETTINGS_PATH}" ]; then
