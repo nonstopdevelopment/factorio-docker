@@ -11,12 +11,6 @@ cd "${FACTORIO_DIR}"
 echo "Running as user: $(whoami) (ID: $(id -u))"
 echo "Working directory: $(pwd)"
 
-# Test permissions (optional but good for debugging)
-echo "Attempting to write to .: $(touch ./test_write && rm ./test_write && echo OK || echo FAILED)"
-echo "Attempting to write to saves: $(touch ${FACTORIO_SAVES_DIR}/test_write && rm ${FACTORIO_SAVES_DIR}/test_write && echo OK || echo FAILED)"
-echo "Attempting to write to config: $(touch ${FACTORIO_CONFIG_DIR}/test_write && rm ${FACTORIO_CONFIG_DIR}/test_write && echo OK || echo FAILED)"
-
-
 # Define paths for config files and the writable data directory WITHIN the config volume
 SERVER_SETTINGS_PATH="${FACTORIO_CONFIG_DIR}/server-settings.json"
 CONFIG_INI_PATH="${FACTORIO_CONFIG_DIR}/config.ini"
@@ -26,15 +20,16 @@ WRITE_DATA_PATH="${FACTORIO_CONFIG_DIR}/runtime-data"
 MAP_GEN_SETTINGS_PATH="${FACTORIO_CONFIG_DIR}/map-gen-settings.json" # Example for other configs
 MAP_SETTINGS_PATH="${FACTORIO_CONFIG_DIR}/map-settings.json"       # Example for other configs
 
-# --- Create Writable Data Directory ---
-# This *must* exist before Factorio starts and tries to use it.
+# --- Create Writable Data Directory AND the expected 'saves' subdirectory ---
 echo "Ensuring writable data directory exists: ${WRITE_DATA_PATH}"
 mkdir -p "${WRITE_DATA_PATH}"
-echo "Ensuring writable data directory exists: ${FACTORIO_SAVES_DIR}"
-mkdir -p "${FACTORIO_SAVES_DIR}"
-echo "Ensuring writable data directory exists: ${FACTORIO_CONFIG_DIR}"
-mkdir -p "${FACTORIO_CONFIG_DIR}"
+echo "Ensuring saves subdirectory exists within write-data: ${WRITE_DATA_PATH}/saves"
+mkdir -p "${WRITE_DATA_PATH}/saves"
 
+# Test permissions (optional but good for debugging)
+echo "Attempting to write to .: $(touch ./test_write && rm ./test_write && echo OK || echo FAILED)"
+echo "Attempting to write to saves: $(touch ${FACTORIO_SAVES_DIR}/test_write && rm ${FACTORIO_SAVES_DIR}/test_write && echo OK || echo FAILED)"
+echo "Attempting to write to config: $(touch ${FACTORIO_CONFIG_DIR}/test_write && rm ${FACTORIO_CONFIG_DIR}/test_write && echo OK || echo FAILED)"
 
 
 # --- Generate/Check config.ini ---
@@ -92,7 +87,6 @@ exec ./bin/x64/factorio \
   --map-gen-settings "${MAP_GEN_SETTINGS_PATH}" \
   --map-settings "${MAP_SETTINGS_PATH}" \
   --save-directory "${FACTORIO_SAVES_DIR}" \
-  --start-server-load-latest \
   "$@" # Pass any extra arguments from Kubernetes args/command
 
 # The script will not reach here if exec is successful
