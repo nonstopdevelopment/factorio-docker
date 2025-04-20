@@ -35,42 +35,33 @@ mkdir -p "${WRITE_DATA_PATH}"
 # --- Generate/Check config.ini ---
 if [ ! -f "${CONFIG_INI_PATH}" ]; then
   echo "Generating ${CONFIG_INI_PATH}..."
-  # Create the config.ini file, telling Factorio where to read game data
-  # and where it's allowed to write runtime files (logs, lock, etc.)
   cat <<EOF > "${CONFIG_INI_PATH}"
 [path]
 read-data=/factorio/factorio/data
 write-data=${WRITE_DATA_PATH}
-
-[general]
-# You can add other config.ini defaults here if needed
-# For example:
-# server-whitelist=__PATH__executable__/../../server-whitelist.json
-# server-banlist=__PATH__executable__/../../server-banlist.json
 EOF
 else
   echo "Using existing ${CONFIG_INI_PATH}."
-  # Optional: Check if write-data path is correctly set? Might be overkill.
 fi
 
 
-# --- Generate/Check server-settings.json ---
-if [ ! -f "${SERVER_SETTINGS_PATH}" ]; then
-  # Make sure the template file exists before trying to use it
-  if [ ! -f "server-settings-template.json" ]; then
-      echo "ERROR: server-settings-template.json not found in ${PWD}!"
-      exit 1
-  fi
-  echo "Generating ${SERVER_SETTINGS_PATH} from template..."
-  # Write the generated settings to the CONFIG directory
-  jq '.username = env.FACTORIO_USERNAME | .password = env.FACTORIO_PASSWORD | .name = env.FACTORIO_SERVER_NAME | .description = env.FACTORIO_SERVER_DESCRIPTION' \
-     server-settings-template.json > "${SERVER_SETTINGS_PATH}"
-else
-  echo "Using existing ${SERVER_SETTINGS_PATH}."
+# --- !!! ALWAYS Generate server-settings.json !!! ---
+# Remove the check for existence. We will always overwrite it from ENV vars.
+echo "Generating ${SERVER_SETTINGS_PATH} from template using current environment variables..."
+# Make sure the template file exists before trying to use it
+if [ ! -f "server-settings-template.json" ]; then
+    echo "ERROR: server-settings-template.json not found in ${PWD}!"
+    exit 1
 fi
+# Write the generated settings to the CONFIG directory, overwriting if it exists.
+jq '.username = env.FACTORIO_USERNAME | .password = env.FACTORIO_PASSWORD | .name = env.FACTORIO_SERVER_NAME | .description = env.FACTORIO_SERVER_DESCRIPTION' \
+   server-settings-template.json > "${SERVER_SETTINGS_PATH}"
+# --- End of always generating server-settings.json ---
 
-echo "Config output:"
+# --- !!! Output server-settings.json to console for debugging!!! ---
+echo "Config output for validation:"
 cat "${SERVER_SETTINGS_PATH}"
+# --- !!! End settings debug !!! ---
 
 # --- Add similar logic for map-gen-settings.json and map-settings.json if needed ---
 # Example: Copy defaults if they don't exist in the config volume
