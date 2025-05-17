@@ -81,4 +81,4 @@ RUN chmod +x ${FACTORIO_DIR}/entry_point.sh
 RUN chown -R ${FACTORIO_USER}:${FACTORIO_GROUP} ${FACTORIO_DIR}
 RUN ls -l ${FACTORIO_DIR}
 # Set the entrypoint
-ENTRYPOINT ["entry_point.sh"]
+ENTRYPOINT ["/factorio/factorio/entry_point.sh"]
