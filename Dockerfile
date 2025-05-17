@@ -63,10 +63,9 @@ RUN mkdir -p ${FACTORIO_SAVES_DIR} ${FACTORIO_CONFIG_DIR} ${FACTORIO_MODS_DIR} $
     ./bin/x64/factorio --create ${FACTORIO_SAVES_DIR}/my-save.zip
 
 # Copy configuration templates (owned by factorio user due to USER instruction)
-COPY --chown=${FACTORIO_USER}:${FACTORIO_GROUP} server-settings-template.json ${FACTORIO_CONFIG_DIR}/server-settings-template.json
-COPY --chown=${FACTORIO_USER}:${FACTORIO_GROUP} map-settings.json ${FACTORIO_CONFIG_DIR}/map-settings.json
-COPY --chown=${FACTORIO_USER}:${FACTORIO_GROUP} map-gen-settings.json ${FACTORIO_CONFIG_DIR}/map-gen-settings.json
-COPY --chown=${FACTORIO_USER}:${FACTORIO_GROUP} config.ini ${FACTORIO_CONFIG_DIR}/config.ini
+COPY --chown=${FACTORIO_USER}:${FACTORIO_GROUP} server-settings-template.json ${FACTORIO_DIR}/server-settings-template.json
+COPY --chown=${FACTORIO_USER}:${FACTORIO_GROUP} map-settings.json ${FACTORIO_DIR}/map-settings.json
+COPY --chown=${FACTORIO_USER}:${FACTORIO_GROUP} map-gen-settings.json ${FACTORIO_DIR}/map-gen-settings.json
 # Something broke in the new version with blueprints. Will fix this later but this hack works
 COPY --chown=${FACTORIO_USER}:${FACTORIO_GROUP} blueprint-storage.dat ${FACTORIO_DIR}/blueprint-storage.dat
 COPY --chown=${FACTORIO_USER}:${FACTORIO_GROUP} blueprint-storage.dat ${FACTORIO_DIR}/blueprint-storage-2.dat
