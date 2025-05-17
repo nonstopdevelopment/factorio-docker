@@ -1,6 +1,11 @@
 # Use a specific Debian version for reproducibility
 FROM debian:bookworm
 
+# Try to readd sources to fix fetching issues
+RUN deb http://ftp.au.debian.org/debian bookworm main contrib non-free non-free-firmware
+RUN deb http://ftp.au.debian.org/debian bookworm-updates main contrib non-free non-free-firmware
+RUN deb http://deb.debian.org/debian-security bookworm-security main contrib non-free non-free-firmware
+
 # Combine RUN commands to reduce layers and clean up apt cache
 RUN apt update
 RUN apt install -y --no-install-recommends curl xz-utils jq ca-certificates
