@@ -48,11 +48,6 @@ ENV FACTORIO_LOG_DIR=${FACTORIO_DIR}/logs
 # This is the CRUCIAL step for runtime permissions
 RUN chown -R ${FACTORIO_USER}:${FACTORIO_GROUP} /factorio
 
-# Copy and set executable permission for the entrypoint script
-COPY --chown=${FACTORIO_USER}:${FACTORIO_GROUP} entry_point.sh ${FACTORIO_DIR}/entry_point.sh
-RUN cat ${FACTORIO_DIR}/entry_point.sh
-RUN chmod 755 ${FACTORIO_DIR}/entry_point.sh
-
 # Switch to the non-root user for subsequent operations
 USER ${FACTORIO_USER}
 
@@ -77,6 +72,11 @@ COPY --chown=${FACTORIO_USER}:${FACTORIO_GROUP} blueprint-storage.dat ${FACTORIO
 
 # Expose the Factorio port
 EXPOSE 34197/udp
+
+# Copy and set executable permission for the entrypoint script
+COPY --chown=${FACTORIO_USER}:${FACTORIO_GROUP} entry_point.sh ${FACTORIO_DIR}/entry_point.sh
+RUN cat ${FACTORIO_DIR}/entry_point.sh
+RUN chmod 755 ${FACTORIO_DIR}/entry_point.sh
 
 # Set the entrypoint
 ENTRYPOINT ["/factorio/factorio/entry_point.sh"]
