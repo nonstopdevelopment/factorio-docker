@@ -4,10 +4,13 @@ FROM debian:bookworm
 # Try to readd sources to fix fetching issues
 COPY sources.list /etc/apt/sources.list
 
+RUN ping google.com
+RUN ping deb.debian.org
+
 # Combine RUN commands to reduce layers and clean up apt cache
-RUN apt update
-RUN apt install -y --no-install-recommends curl xz-utils jq ca-certificates
-RUN apt clean
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends curl xz-utils jq ca-certificates
+RUN apt-get clean
 RUN rm -rf /var/lib/apt/lists/*
 
 # Create a non-root user and group for Factorio
