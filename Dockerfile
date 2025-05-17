@@ -2,10 +2,11 @@
 FROM debian:bookworm
 
 # Combine RUN commands to reduce layers and clean up apt cache
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends curl xz-utils jq ca-certificates && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+RUN curl deb.debian.org
+RUN apt update
+RUN apt install -y --no-install-recommends curl xz-utils jq ca-certificates
+RUN apt clean
+RUN rm -rf /var/lib/apt/lists/*
 
 # Create a non-root user and group for Factorio
 # Using a fixed UID/GID (e.g., 1001) can be helpful, but OKD might override it anyway.
