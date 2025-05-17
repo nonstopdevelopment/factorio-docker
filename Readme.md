@@ -1,6 +1,6 @@
 ## Factorio Server Docker
 
-A container for building and running a Dockerized Factorio server.
+A container for building and running a Dockerized Factorio server in a very insecure manner with ENV 
 
 Project to run Factorio headless on Kubernetes OpenShift so this is a work in progress.
 
