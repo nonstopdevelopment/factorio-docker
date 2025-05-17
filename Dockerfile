@@ -76,9 +76,7 @@ EXPOSE 34197/udp
 # Copy and set executable permission for the entrypoint script
 COPY --chown=${FACTORIO_USER}:${FACTORIO_GROUP} entry_point.sh ${FACTORIO_DIR}/entry_point.sh
 RUN cat ${FACTORIO_DIR}/entry_point.sh
-RUN chmod +x ${FACTORIO_DIR}/entry_point.sh
-# Set ownership of the factorio directory to the factorio user last edit
-RUN chown -R ${FACTORIO_USER}:${FACTORIO_GROUP} ${FACTORIO_DIR}
-RUN ls -l ${FACTORIO_DIR}
+RUN chmod 755 ${FACTORIO_DIR}/entry_point.sh
+
 # Set the entrypoint
 ENTRYPOINT ["/factorio/factorio/entry_point.sh"]
