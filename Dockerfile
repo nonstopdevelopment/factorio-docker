@@ -2,7 +2,6 @@
 FROM debian:bookworm
 
 # Combine RUN commands to reduce layers and clean up apt cache
-RUN curl deb.debian.org
 RUN apt update
 RUN apt install -y --no-install-recommends curl xz-utils jq ca-certificates
 RUN apt clean
