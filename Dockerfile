@@ -2,9 +2,10 @@
 FROM debian:bookworm
 
 # Try to readd sources to fix fetching issues
-RUN deb http://ftp.au.debian.org/debian bookworm main contrib non-free non-free-firmware
-RUN deb http://ftp.au.debian.org/debian bookworm-updates main contrib non-free non-free-firmware
-RUN deb http://deb.debian.org/debian-security bookworm-security main contrib non-free non-free-firmware
+# deb http://ftp.au.debian.org/debian bookworm main contrib non-free non-free-firmware
+# deb http://ftp.au.debian.org/debian bookworm-updates main contrib non-free non-free-firmware
+# deb http://deb.debian.org/debian-security bookworm-security main contrib non-free non-free-firmware
+RUN cat /etc/apt/sources.list
 
 # Combine RUN commands to reduce layers and clean up apt cache
 RUN apt update
