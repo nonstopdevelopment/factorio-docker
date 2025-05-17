@@ -78,5 +78,6 @@ COPY --chown=${FACTORIO_USER}:${FACTORIO_GROUP} entry_point.sh ${FACTORIO_DIR}/e
 RUN chmod +x ${FACTORIO_DIR}/entry_point.sh
 # Set ownership of the factorio directory to the factorio user last edit
 RUN chown -R ${FACTORIO_USER}:${FACTORIO_GROUP} ${FACTORIO_DIR}
+RUN ls -la ${FACTORIO_DIR}
 # Set the entrypoint
 ENTRYPOINT [${FACTORIO_DIR}/entry_point.sh]
