@@ -1,5 +1,5 @@
 # Use a specific Debian version for reproducibility
-FROM debian:bookworm-slim
+FROM debian:bookworm
 
 # Combine RUN commands to reduce layers and clean up apt cache
 RUN apt-get update && \
