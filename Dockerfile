@@ -1,11 +1,5 @@
 # Use a specific Debian version for reproducibility
-FROM debian:bookworm
-
-# Try to readd sources to fix fetching issues
-COPY sources.list /etc/apt/sources.list
-
-RUN ping google.com
-RUN ping deb.debian.org
+FROM ubuntu:22.04
 
 # Combine RUN commands to reduce layers and clean up apt cache
 RUN apt-get update
@@ -39,10 +33,10 @@ RUN tar -xf /tmp/factorio.tar.xz -C /factorio && \
 # RUN ls -l /factorio/factorio
 
 # Set Environment Variables (can also be set at runtime in Kubernetes)
-ENV FACTORIO_USERNAME="test"
-ENV FACTORIO_PASSWORD="password"
-ENV FACTORIO_SERVER_NAME="FUN SERVER"
-ENV FACTORIO_SERVER_DESCRIPTION="A fun server."
+# ENV FACTORIO_USERNAME="test"
+# ENV FACTORIO_PASSWORD="password"
+# ENV FACTORIO_SERVER_NAME="FUN SERVER"
+# ENV FACTORIO_SERVER_DESCRIPTION="A fun server."
 # Define paths for clarity
 ENV FACTORIO_DIR=/factorio/factorio
 ENV FACTORIO_SAVES_DIR=${FACTORIO_DIR}/saves
@@ -70,6 +64,11 @@ RUN mkdir -p ${FACTORIO_SAVES_DIR} ${FACTORIO_CONFIG_DIR} ${FACTORIO_MODS_DIR} $
 
 # Copy configuration templates (owned by factorio user due to USER instruction)
 COPY --chown=${FACTORIO_USER}:${FACTORIO_GROUP} server-settings-template.json ${FACTORIO_DIR}/server-settings-template.json
+COPY --chown=${FACTORIO_USER}:${FACTORIO_GROUP} map-settings.json ${FACTORIO_DIR}/map-settings.json
+COPY --chown=${FACTORIO_USER}:${FACTORIO_GROUP} map-gen-settings.json ${FACTORIO_DIR}/map-gen-settings.json
+# Something broke in the new version with blueprints. Will fix this later but this hack works
+COPY --chown=${FACTORIO_USER}:${FACTORIO_GROUP} blueprint-storage.dat ${FACTORIO_DIR}/blueprint-storage.dat
+COPY --chown=${FACTORIO_USER}:${FACTORIO_GROUP} blueprint-storage.dat ${FACTORIO_DIR}/blueprint-storage-2.dat
 
 # Expose the Factorio port
 EXPOSE 34197/udp
@@ -80,6 +79,3 @@ RUN chmod +x ${FACTORIO_DIR}/entry_point.sh
 
 # Set the entrypoint
 ENTRYPOINT ["/factorio/factorio/entry_point.sh"]
-
-# Optional: Set a default command (can be overridden)
-# CMD ["--start-server-load-latest"]
