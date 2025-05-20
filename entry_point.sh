@@ -111,7 +111,17 @@ exec ./bin/x64/factorio \
   --map-settings "${MAP_SETTINGS_PATH}" \
   ${FACTORIO_START_COMMAND} \
   "$@" # Pass any extra arguments
+  
+FACTORIO_START_COMMAND="--start-server-load-latest"
 
+exec ./bin/x64/factorio \
+  --config "${CONFIG_INI_PATH}" \
+  --server-settings "${SERVER_SETTINGS_PATH}" \
+  --map-gen-settings "${MAP_GEN_SETTINGS_PATH}" \
+  --map-settings "${MAP_SETTINGS_PATH}" \
+  ${FACTORIO_START_COMMAND} \
+  "$@" # Pass any extra arguments
+  
 # Script won't reach here if exec is successful
 echo "Factorio server exited."
 exit 1
