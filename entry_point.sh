@@ -102,7 +102,7 @@ fi
 
 
 echo "Starting Factorio server..."
-
+echo "Using command: ${FACTORIO_START_COMMAND}."
 # Use the determined start command
 exec ./bin/x64/factorio \
   --config "${CONFIG_INI_PATH}" \
@@ -111,8 +111,8 @@ exec ./bin/x64/factorio \
   --map-settings "${MAP_SETTINGS_PATH}" \
   ${FACTORIO_START_COMMAND} \
   "$@" # Pass any extra arguments
-  
-FACTORIO_START_COMMAND="--start-server-load-latest"
+
+echo "Starting server again with: ${FACTORIO_START_COMMAND}."
 
 exec ./bin/x64/factorio \
   --config "${CONFIG_INI_PATH}" \
