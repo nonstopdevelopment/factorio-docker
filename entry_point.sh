@@ -104,7 +104,7 @@ fi
 echo "Starting Factorio server..."
 echo "Using command: ${FACTORIO_START_COMMAND}."
 # Use the determined start command
-exec ./bin/x64/factorio \
+./bin/x64/factorio \
   --config "${CONFIG_INI_PATH}" \
   --server-settings "${SERVER_SETTINGS_PATH}" \
   --map-gen-settings "${MAP_GEN_SETTINGS_PATH}" \
@@ -114,7 +114,7 @@ exec ./bin/x64/factorio \
 
 echo "Starting server again with: ${FACTORIO_START_COMMAND}."
 
-exec ./bin/x64/factorio \
+./bin/x64/factorio \
   --config "${CONFIG_INI_PATH}" \
   --server-settings "${SERVER_SETTINGS_PATH}" \
   --map-gen-settings "${MAP_GEN_SETTINGS_PATH}" \
