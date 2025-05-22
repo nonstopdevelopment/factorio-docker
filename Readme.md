@@ -16,3 +16,5 @@ FACTORIO_SERVER_DESCRIPTION
 ```
 
 Currently runs a default game with no plugins so it removes Space Age, Elevated Rails, and Quality.
+
+This is built for a very specific use case so won't be ideal for most unless you just need a framework. Will be building a new version of this.
