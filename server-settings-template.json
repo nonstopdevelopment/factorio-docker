@@ -71,8 +71,6 @@
   "minimum_segment_size": 25,
   "minimum_segment_size_peer_count": 20,
   "maximum_segment_size": 100,
-  "maximum_segment_size_peer_count": 10,
-  "_comment_admins": "List of case insensitive usernames, that will be promoted immediately",
-  "admins": ["boxxa"]
+  "maximum_segment_size_peer_count": 10
 }
 
