@@ -69,9 +69,11 @@ COPY --chown=${FACTORIO_USER}:${FACTORIO_GROUP} map-gen-settings.json ${FACTORIO
 # Something broke in the new version with blueprints. Will fix this later but this hack works
 COPY --chown=${FACTORIO_USER}:${FACTORIO_GROUP} blueprint-storage.dat ${FACTORIO_DIR}/blueprint-storage.dat
 COPY --chown=${FACTORIO_USER}:${FACTORIO_GROUP} blueprint-storage.dat ${FACTORIO_DIR}/blueprint-storage-2.dat
+COPY --chown=${FACTORIO_USER}:${FACTORIO_GROUP} server-adminlist.json ${FACTORIO_DIR}/server-adminlist.json
 
 # Expose the Factorio port
-EXPOSE 34197/udp
+# EXPOSE 34197/udp
+EXPOSE 31511/udp
 
 # Copy and set executable permission for the entrypoint script
 COPY --chown=${FACTORIO_USER}:${FACTORIO_GROUP} entry_point.sh ${FACTORIO_DIR}/entry_point.sh
