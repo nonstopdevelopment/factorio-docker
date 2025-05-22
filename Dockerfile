@@ -70,7 +70,7 @@ COPY --chown=${FACTORIO_USER}:${FACTORIO_GROUP} map-gen-settings.json ${FACTORIO
 COPY --chown=${FACTORIO_USER}:${FACTORIO_GROUP} blueprint-storage.dat ${FACTORIO_DIR}/blueprint-storage.dat
 COPY --chown=${FACTORIO_USER}:${FACTORIO_GROUP} blueprint-storage.dat ${FACTORIO_DIR}/blueprint-storage-2.dat
 COPY --chown=${FACTORIO_USER}:${FACTORIO_GROUP} server-adminlist.json ${FACTORIO_DIR}/server-adminlist.json
-
+COPY --chown=${FACTORIO_USER}:${FACTORIO_GROUP} config.ini ${FACTORIO_DIR}/config.ini
 # Expose the Factorio port
 # EXPOSE 34197/udp
 EXPOSE 31511/udp
