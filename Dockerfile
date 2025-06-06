@@ -30,6 +30,8 @@ RUN mkdir /factorio
 RUN chown -R ${FACTORIO_USER}:${FACTORIO_GROUP} /factorio
 WORKDIR /factorio
 
+COPY --from=download /factorio /factorio
+
 ENV FACTORIO_DIR=/factorio
 ENV FACTORIO_SAVES_DIR=${FACTORIO_DIR}/saves
 ENV FACTORIO_CONFIG_DIR=${FACTORIO_DIR}/config
